@@ -1,8 +1,8 @@
 {
-  "name": "ConcaveEarth",
+  "name": "ArduinoMCP",
   "type": "module",
   "version": "1.0.0",
-  "description": "MCP server: ConcaveEarth",
+  "description": "MCP server: ArduinoMCP",
   "author": "",
   "license": "MIT",
   "keywords": [

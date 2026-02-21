@@ -1,83 +1,142 @@
-# ArduinoMCP: The Future of Hardware Prototyping 🚀
+# Antigravity Arduino MCP
 
-> **ArduinoMCP is the world’s first AI co-pilot for the physical world.** We bridge the gap between imagination and hardware reality, removing the friction from Arduino development through the power of MCP (Model Context Protocol).
+Lean MCP app for Arduino prototyping in ChatGPT.
 
-**Current status:** Functional MCP prototype with schema-driven workflow and mock integrations.
+## Current Code Scope (Active Tools)
+Registered in `ArduinoMCP/src/index.ts`:
 
----
+1. `generate_circuit`
+2. `validate_circuit`
+3. `write_arduino_code` (workspace UI entrypoint)
+4. `search_components`
+5. `get_datasheet`
+6. `order_parts`
 
-## ⚡️ The Problem
-Hardware development is currently stuck in the 2000s. Developers spend **70% of their time** searching for datasheets, debugging missing resistors, and fighting boilerplate code instead of building. 
+Deferred (present in codebase, not registered):
+- `search_emails`, `generate_3d_case`, `analyze_photo`, `suggest_improvements`, `export_project`
 
-**Prototyping is slow, error-prone, and documentation is scattered.**
+## Concept Map
 
-## 💎 The Solution: ArduinoMCP
-ArduinoMCP brings **Generative AI to the Breadboard**. We automate the entire hardware lifecycle—from a simple text description to a verified circuit, functional firmware, and a curated shopping cart.
+```text
+User Intent (ChatGPT)
+        |
+        v
++--------------------+      +--------------------+
+| generate_circuit   |----->|   CircuitSchema    |
++--------------------+      | parts/nets/pin_map |
+        |                   | power/constraints   |
+        v                   +--------------------+
++--------------------+                 |
+| validate_circuit   |<----------------+
++--------------------+                 |
+        | pass/warn                    |
+        v                              v
++--------------------+      +--------------------+
+| write_arduino_code |----->| arduino-circuit-   |
+| (code + widget)    |      | builder widget UI  |
++--------------------+      +--------------------+
+        |
+        +--------------------------+
+        |                          |
+        v                          v
++--------------------+    +--------------------+
+| search_components  |    | get_datasheet      |
++--------------------+    +--------------------+
+        \                     /
+         \                   /
+          v                 v
+             +--------------------+
+             |   order_parts      |
+             +--------------------+
+```
 
-### 🎥 [Watch the Interactive Demo](http://localhost:3000/inspector)
-*(Run locally inside an MCP client like ChatGPT to see our custom React widgets in action)*
+## Process Map
 
----
+### A) Main Build Flow
+```text
+1) User describes project in ChatGPT
+2) generate_circuit -> normalized CircuitSchema
+3) validate_circuit -> warnings + pass/fail
+4) write_arduino_code -> .ino + MCP workspace UI
+5) User iterates in chat with updated requirements
+```
 
-## 🛠 Product Showcase (Prototype Implemented)
+### B) Parts Decision Flow
+```text
+CircuitSchema.parts
+   -> search_components (candidates, availability, links)
+   -> get_datasheet (voltage/current/pinout checks)
+   -> order_parts (cart links + estimated total)
+```
 
-### 1. **AI Circuit Builder (Dynamic UI)**
-Our signature **`arduino-circuit-builder`** widget is an all-in-one compact workspace designed for ChatGPT interactions.
-*   **Generative Firmware**: Generates starter `.ino` code scaffolds based on requirements and normalized circuit schema.
-*   **Visual Schematics**: Dynamic SVG previews of your wiring.
-*   **Automated BOM**: Instant parts list with Adafruit/Digikey links.
+### C) UI Interaction Flow
+```text
+ChatGPT message -> tool call write_arduino_code
+               -> widget render (code + logical diagram + component list)
+               -> user continues conversation in ChatGPT (not inside widget)
+```
 
-### 2. **Intelligent Component Discovery**
-*   **Metadata-Rich Search (Mock Data)**: Supports query/filter flow (price, stock) with structured component outputs.
-*   **Datasheet Lookup (Mock Data)**: Returns datasheet links and key electrical specs in normalized format.
+## Tool Roles (Current)
+- `generate_circuit`: Builds normalized schema from intent.
+- `validate_circuit`: Checks obvious electrical/design risks.
+- `write_arduino_code`: Generates starter firmware and returns workspace UI.
+- `search_components`: Filters candidate parts (prototype data shape).
+- `get_datasheet`: Returns datasheet URL + key specs summary.
+- `order_parts`: Produces vendor links + rough cost estimate from BOM/schema.
 
-### 3. **Synthesis & Validation**
-*   **Natural Language Synthesis**: Translates requests into a normalized `CircuitSchema` (parts, nets, pin map, constraints).
-*   **Safety Auditing (Rule-based Prototype)**: Checks common issues such as missing LED resistors, floating nets, voltage mismatch, and pin short risks.
+## Data Model Core
+Primary shared model: `CircuitSchema` in `ArduinoMCP/src/tools/circuit_schema.ts`.
 
-### 4. **Vision-Assisted Analysis**
-*   **Photo-Assisted Drafting (Prototype)**: Accepts image references and returns inferred components/dimensions plus a draft circuit schema.
+```text
+CircuitSchema
+- power: input_voltage_v, logic_voltage_v, max_current_ma
+- parts[]: ref, name, mpn, quantity, limits
+- nets[]: net name + pin connections
+- pin_map: signal -> board pin ref
+- constraints[]
+```
 
----
+## Run
 
-## 📈 Roadmap: Scaling to the Physical Edge
+```bash
+cd ArduinoMCP
+npm install
+npm run dev
+```
 
-- [x] **Phase 1: Foundation (Hackathon)** – Core toolset, modular engine, shared data model (`CircuitSchema`), and React widgets.
-- [ ] **Phase 2: Live Supply APIs** – Direct API integration with DigiKey, Mouser, and Farnell for real-time stock and checkout.
-- [ ] **Phase 3: True 3D Artifact Pipeline** – Upgrade from OpenSCAD/STL references to generated downloadable artifacts.
-- [ ] **Phase 4: Compile/Upload Validation** – Add board/FQBN-aware compile checks and upload instruction validation.
-- [ ] **Phase 5: Project Packaging** – Produce downloadable ZIP bundles including sketch + schema + BOM + enclosure assets.
+Open:
+- `http://localhost:3000/inspector`
 
----
+## Quick Demo Script (ChatGPT)
 
-## 🏗 Built on Modern Infrastructure
-ArduinoMCP is built to move fast. No legacy bloat.
-- **Engine**: [mcp-use](https://github.com/mcp-use/mcp-use) (HMR-enabled MCP server framework)
-- **Frontend**: React 19 + Tailwind CSS 4 (Vibrant, Responsive, Clean for Chatbot UI)
-- **Validation**: Zod (schema-based tool input/output)
-- **Deployment**: Manufact Cloud / Vercel
+Use these prompts in order for a clean MVP demo:
 
----
+1. Generate circuit
+```text
+Create an Arduino circuit for a temperature warning light. Use 5V, include safety constraints, and return the circuit schema.
+```
 
-## 🚀 Getting Started (LP/Investor Demo)
+2. Validate safety
+```text
+Validate this circuit and list any blocking issues first, then warnings.
+```
 
-1. **Install Dependencies**:
-   ```bash
-   cd ArduinoMCP
-   npm install
-   ```
+3. Generate code + open workspace UI
+```text
+Write Arduino code for this circuit schema and include any required libraries.
+```
 
-2. **Start the Engine**:
-   ```bash
-   npm run dev
-   ```
+4. Find purchasable parts
+```text
+Search components for the required sensor and LED parts with in-stock preference and low price.
+```
 
-3. **Explore the Workspace**:
-   Navigate to [http://localhost:3000/inspector](http://localhost:3000/inspector) to interact with the future of hardware.
+5. Check datasheet for one critical component
+```text
+Get datasheet details for LM7805 and summarize voltage, current, and pinout.
+```
 
----
-
-### **Join the ArduinoMCP Team**
-We are currently in the prototyping phase, building the tools that will power the next generation of hardware innovators. 
-
-**ArduinoMCP: Build at the speed of thought.** ⚡️
+6. Build order links
+```text
+Create an order plan from this BOM using either vendor and estimate total cost.
+```

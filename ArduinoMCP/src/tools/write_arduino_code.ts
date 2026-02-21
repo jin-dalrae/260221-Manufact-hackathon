@@ -95,18 +95,36 @@ export const registerWriteArduinoCode = (server: MCPServer) => {
                 purchaseUrl: `https://www.adafruit.com/search?q=${encodeURIComponent(part.mpn ?? part.name)}`,
             }));
 
+            const circuitParts = schema.parts.map((part) => ({
+                ref: part.ref,
+                name: part.name,
+            }));
+
+            const circuitNets = schema.nets.map((net) => ({
+                name: net.name,
+                connections: net.connections.map((conn) => ({
+                    partRef: conn.part_ref,
+                    pin: conn.pin,
+                })),
+            }));
+
+            const powerInfo = `${schema.power.input_voltage_v}V / ${schema.power.max_current_ma}mA`;
+
             return widget({
                 props: {
                     prompt: resolvedDescription,
                     filename: "sketch.ino",
                     code,
-                    diagramTitle: "Circuit Workspace",
+                    diagramTitle: "Circuit Schematic",
                     diagramNotes: [
-                        `Power domain: ${schema.power.input_voltage_v}V input / ${schema.power.logic_voltage_v}V logic`,
-                        `Required libraries: ${requiredLibraries.join(", ")}`,
-                        `Net count: ${schema.nets.length}`,
+                        `Power: ${schema.power.input_voltage_v}V in / ${schema.power.logic_voltage_v}V logic`,
+                        `Libraries: ${requiredLibraries.join(", ")}`,
+                        `${schema.nets.length} nets / ${schema.parts.length} parts`,
                     ],
                     components: widgetComponents,
+                    circuitParts,
+                    circuitNets,
+                    powerInfo,
                 },
                 output: text(`Generated Arduino sketch with ${schema.parts.length} parts and ${schema.nets.length} nets.`),
             });

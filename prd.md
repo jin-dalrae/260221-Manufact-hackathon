@@ -1,7 +1,7 @@
-# Product Requirements Document (PRD): Antigravity Arduino MCP
+# Product Requirements Document (PRD): ArduinoMCP
 
 ## 1. Vision & Purpose
-Antigravity is an AI-powered co-pilot for Arduino development. It bridges the gap between high-level project ideas and the final physical prototype by automating circuit design, firmware generation, and hardware selection within the MCP (Model Context Protocol) ecosystem.
+ArduinoMCP is an AI-powered co-pilot for Arduino development. It bridges the gap between high-level project ideas and the final physical prototype by automating circuit design, firmware generation, and hardware selection within the MCP (Model Context Protocol) ecosystem.
 
 ---
 

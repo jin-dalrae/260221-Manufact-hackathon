@@ -13,7 +13,7 @@ import { registerWriteArduinoCode } from "./tools/write_arduino_code.js";
 
 const server = new MCPServer({
   name: "ArduinoMCP",
-  title: "Antigravity Arduino MCP",
+  title: "ArduinoMCP",
   version: "1.0.0",
   description: "MCP server for Arduino circuit design, firmware generation, and build workflow automation",
   baseUrl: process.env.MCP_URL || "http://localhost:3000",
@@ -32,5 +32,5 @@ registerAnalyzePhoto(server);
 registerSuggestImprovements(server);
 
 server.listen().then(() => {
-  console.log("Antigravity Arduino MCP server running");
+  console.log("ArduinoMCP server running");
 });

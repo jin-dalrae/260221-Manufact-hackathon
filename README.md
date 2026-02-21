@@ -1,6 +1,6 @@
-# Antigravity: The Future of Hardware Prototyping 🚀
+# ArduinoMCP: The Future of Hardware Prototyping 🚀
 
-> **Antigravity is the world’s first AI co-pilot for the physical world.** We bridge the gap between imagination and hardware reality, removing the friction from Arduino development through the power of MCP (Model Context Protocol).
+> **ArduinoMCP is the world’s first AI co-pilot for the physical world.** We bridge the gap between imagination and hardware reality, removing the friction from Arduino development through the power of MCP (Model Context Protocol).
 
 ---
 
@@ -9,8 +9,8 @@ Hardware development is currently stuck in the 2000s. Developers spend **70% of 
 
 **Prototyping is slow, error-prone, and documentation is scattered.**
 
-## 💎 The Solution: Antigravity
-Antigravity brings **Generative AI to the Breadboard**. We automate the entire hardware lifecycle—from a simple text description to a verified circuit, functional firmware, and a curated shopping cart.
+## 💎 The Solution: ArduinoMCP
+ArduinoMCP brings **Generative AI to the Breadboard**. We automate the entire hardware lifecycle—from a simple text description to a verified circuit, functional firmware, and a curated shopping cart.
 
 ### 🎥 [Watch the Interactive Demo](http://localhost:3000/inspector)
 *(Run locally to see our custom React widgets in action)*
@@ -31,7 +31,7 @@ Our signature **`arduino-circuit-builder`** widget is an all-in-one workspace.
 
 ### 3. **Verification & Vision**
 *   **Safety Audit**: Rule-based validation to prevent short-circuits.
-*   **Photo-to-Schema**: Upload a photo of your mess of wires, and Antigravity will map it back to a clean digital schematic.
+*   **Photo-to-Schema**: Upload a photo of your mess of wires, and ArduinoMCP will map it back to a clean digital schematic.
 
 ---
 
@@ -45,7 +45,7 @@ Our signature **`arduino-circuit-builder`** widget is an all-in-one workspace.
 ---
 
 ## 🏗 Built on Modern Infrastructure
-Antigravity is built to move fast. No legacy bloat.
+ArduinoMCP is built to move fast. No legacy bloat.
 - **Engine**: [mcp-use](https://github.com/mcp-use/mcp-use)
 - **Frontend**: React 19 + Tailwind CSS 4 (Vibrant, Responsive, Premium)
 - **Validation**: Zod (Strict, Schema-first architecture)
@@ -70,7 +70,7 @@ Antigravity is built to move fast. No legacy bloat.
 
 ---
 
-### **Join the Antigravity Team**
+### **Join the ArduinoMCP Team**
 We are currently in the prototyping phase, building the tools that will power the next generation of hardware innovators. 
 
-**Antigravity: Build at the speed of thought.** ⚡️
+**ArduinoMCP: Build at the speed of thought.** ⚡️

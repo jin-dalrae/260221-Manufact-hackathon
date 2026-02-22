@@ -14,7 +14,7 @@ Hardware development is currently stuck in the 2000s. Developers spend **70% of 
 ## 💎 The Solution: ArduinoMCP
 ArduinoMCP brings **Generative AI to the Breadboard**. We automate the hardware workflow from text intent to validated circuit, starter firmware, and parts planning.
 
-### 🎥 [Watch the Interactive Demo](http://localhost:3000/inspector)
+### 🎥 [Watch the Interactive Demo](https://youtu.be/VosECASvMn8?si=4FU11WRWDv3NUELm)
 *(Run locally inside an MCP client like ChatGPT to see our custom React widget in action)*
 
 ---
